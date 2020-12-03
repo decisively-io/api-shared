@@ -1,6 +1,19 @@
 {
   "name": "@decisively-io/api-shared",
-  "version": "0.0.7",
+  "version": "0.0.3",
   "description": "Decisively Shared API components",
   "repository": "git://github.com/decisively-io/api-shared.git",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "yarn publish"
+  },
+  "dependencies": {
+    "atob": "^2.1.2",
+    "axios": "^0.21.0",
+    "lodash": "^4.17.20",
+    "url": "^0.11.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  }
 }
