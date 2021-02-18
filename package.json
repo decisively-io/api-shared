@@ -1,11 +1,13 @@
 {
   "name": "@decisively-io/api-shared",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "Decisively Shared API components",
   "repository": "git://github.com/decisively-io/api-shared.git",
   "main": "src/index.js",
   "scripts": {
-    "deploy": "yarn publish"
+    "deploy": "yarn publish",
+    "test": "NODE_ENV=test && jest  --forceExit",
+    "watch:test": "NODE_ENV=test && jest --watchAll"
   },
   "dependencies": {
     "atob": "^2.1.2",
