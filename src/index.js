@@ -1,0 +1,1 @@
+module.exports = Object.assign({}, require('./shared'), require('./soda_controller'));

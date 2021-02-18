@@ -14,29 +14,37 @@ module.exports = {
     }
     return queryData;
   },
-  checkCustomer: async (ctx) => {
-    let idcs_token = get(ctx, 'headers[Fn-Http-H-Idcs-Token][0]');
-    if (!idcs_token) {
-      console.log('CheckCustomer: No access token provided');
+  parseToken : (ctx, header = 'Fn-Http-H-Idcs-Token') => {
+    let token = get(ctx, `headers[${header}][0]`);
+    if (!token) {
+      console.log('No token provided');
       return false;
     }
+
+    if (token.split(' ').length > 1) token = token.split(' ')[1]; // to remove bearer
+    let payload;
+    try {
+      // Parse the token to get additional info
+      const parts = token.split('.');
+      payload = JSON.parse(atob(parts[1]));
+    } catch (error) {
+      console.log('Error parsing token', error);
+      return false;
+    }
+    return payload;
+  },
+  checkCustomer: async (ctx) => {
+    
     const customer = get(ctx, 'headers[Fn-Http-H-Dcsvly-Customer][0]');
 
     if (!customer) {
       console.log('CheckCustomer: No customer header provided');
       return false;
     } 
-    if (idcs_token.split(' ').length > 1) idcs_token = idcs_token.split(' ')[1];
-    let url;
-    try {
-      // Parse the token to get additional info
-      const parts = idcs_token.split('.');
-      const payload = JSON.parse(atob(parts[1]));
-      url = get(payload, 'tenant_iss');
-    } catch (error) {
-      console.log('CheckCustomer: Error parsing token', error);
-      return false;
-    }
+    const payload = this.parseToken(ctx);
+    if (!payload) return false;
+    const url = get(payload, 'tenant_iss');
+
     // Validate the user has access to this customer
     try {
 
