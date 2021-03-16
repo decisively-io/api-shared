@@ -1,6 +1,6 @@
 {
   "name": "@decisively-io/api-shared",
-  "version": "0.0.37",
+  "version": "0.0.38",
   "description": "Decisively Shared API components",
   "repository": "git://github.com/decisively-io/api-shared.git",
   "main": "src/index.js",
