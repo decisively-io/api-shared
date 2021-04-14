@@ -1,1 +1,1 @@
-module.exports = Object.assign({}, require('./shared'), require('./soda_controller'));
+module.exports = Object.assign({}, require('./shared'), require('./soda_controller'), require('./policy_hub'), require('./mockSoda'));
